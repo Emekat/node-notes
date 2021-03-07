@@ -15,13 +15,12 @@ var routes = {
 }
 
 http.createServer((request, response) => {
-    response.writeHead(200, {
-        'Content-Type':'text/plain'
-    });
-  
-    response.write('Hello, World!\n');
-
-    response.end();
+    
+    if(request.url in routes){
+        return routes[request.url](request, response);
+    }
+    response.writeHead(404);
+    response.end(http.STATUS_CODES[404]);
 }).listen(1337,() => {
         console.log('Server running at:'+ 1337);
     });
