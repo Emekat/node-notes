@@ -1,26 +1,8 @@
 //jshint esversion:6
 
-const http = require('express');
-// debugger;
+const express = require('express');
+const greetMiddleware = require('./greet.js');
+const app = express();
 
-var routes = {
-    '/':function index(request, response){
-        response.writeHead(200);
-        response.end('Hello, World!');
-    },
-    '/foo':function index(request, response){
-        response.writeHead(200);
-        response.end('You are now viewing "foo"');
-    }
-};
+app.use('/api/v1/', greetMiddleware({ greeting: 'Hello world'})).listen(8080);
 
-http.createServer((request, response) => {
-    
-    if(request.url in routes){
-        return routes[request.url](request, response);
-    }
-    response.writeHead(404);
-    response.end(http.STATUS_CODES[404]);
-}).listen(process.env.PORT||3000,() => {
-        console.log('Server running at:'+ 1337);
-    });
