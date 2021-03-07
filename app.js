@@ -1,6 +1,6 @@
 //jshint esversion:6
 
-const http = require('http');
+const http = require('express');
 // debugger;
 
 var routes = {
@@ -12,7 +12,7 @@ var routes = {
         response.writeHead(200);
         response.end('You are now viewing "foo"');
     }
-}
+};
 
 http.createServer((request, response) => {
     
@@ -21,6 +21,6 @@ http.createServer((request, response) => {
     }
     response.writeHead(404);
     response.end(http.STATUS_CODES[404]);
-}).listen(1337,() => {
+}).listen(process.env.PORT||3000,() => {
         console.log('Server running at:'+ 1337);
     });
