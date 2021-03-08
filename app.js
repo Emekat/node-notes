@@ -1,18 +1,33 @@
 //jshint esversion:6
 
 const express = require('express');
+var cors = require('cors');
 const app = express();
 
-const PORT =  3000;
+const PORT =  process.env.PORT || 8080;
 
-app.set('view engine', 'pug');
-app.set('views', 'src/views');
 
 //Creates a Root Route
 app.get('/',function(req, res){
-    res.render('index', {name: "Emeka's"}); //renders the index.jade file into html and returns as a response. The
-    //render function also optionally takes the data to pass to the view.
-    });
+    res.send(
+            JSON.stringify
+            (
+              {
+               string_value: 'StackOverflow',
+               number_value: 8476
+              }
+            )  
+            );
+        });
+        // app.get('/',function(req, res){
+        //     res.status(200).json(
+        //               {
+        //                string_value: 'StackOverflow',
+        //                number_value: 8476
+        //               }
+        //             );
+        //         });
+
 app.listen(PORT, (err) => {
         if (!err) {
            console.log('Server is running at port', PORT);} 
